@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="enigma.EnigmaController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="372.0" prefWidth="640.0" style="-fx-background-color: maroon;" VBox.vgrow="ALWAYS">
+      <children>
+            <TextFlow layoutX="183.0" layoutY="14.0" prefHeight="52.0" prefWidth="275.0" textAlignment="CENTER" />
+            <Button fx:id="encodeButton" defaultButton="true" layoutX="443.0" layoutY="315.0" mnemonicParsing="false" onAction="#handleEncodeAction" prefHeight="55.0" prefWidth="150.0" style="-fx-background-color: #a68246; -fx-background-radius: 25;" text="Kodieren" textFill="WHITE">
+               <font>
+                  <Font name="Apple Symbols" size="31.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
+            <ChoiceBox fx:id="innerWheel" layoutX="33.0" layoutY="134.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="middleWheel" layoutX="33.0" layoutY="194.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="outerWheel" layoutX="33.0" layoutY="257.0" prefWidth="150.0" />
+            <Label layoutX="33.0" layoutY="117.0" text="Inneres Rad" textFill="WHITE" />
+            <Label layoutX="33.0" layoutY="177.0" text="Mittleres Rad" textFill="WHITE" />
+            <Label layoutX="33.0" layoutY="240.0" text="Äußeres Rad" textFill="WHITE" />
+            <TextField fx:id="plugboard" layoutX="371.0" layoutY="161.0" prefHeight="27.0" prefWidth="233.0" promptText="Stecktafel-Einstellungen" />
+            <TextField fx:id="reflector" layoutX="371.0" layoutY="221.0" prefHeight="27.0" prefWidth="233.0" promptText="Reflektor-Einstellungen" />
+            <Spinner fx:id="middleStart" editable="true" layoutX="237.0" layoutY="194.0" prefHeight="27.0" prefWidth="74.0" />
+            <Spinner fx:id="outerStart" editable="true" layoutX="237.0" layoutY="257.0" prefHeight="27.0" prefWidth="74.0" />
+        <Label alignment="CENTER" layoutX="154.0" layoutY="33.0" style="&#10;" text="Die Enigma Maschine" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+          <font>
+            <Font name="Apple Chancery" size="36.0" />
+          </font>
+        </Label>
+            <Spinner fx:id="innerStart" editable="true" layoutX="237.0" layoutY="134.0" prefHeight="27.0" prefWidth="74.0" />
+            <Label layoutX="237.0" layoutY="117.0" text="Innerer Anfang" textFill="WHITE" />
+            <Label layoutX="237.0" layoutY="177.0" text="Mittlerer Anfang" textFill="WHITE" />
+            <Label layoutX="237.0" layoutY="240.0" text="Äußerer Anfang" textFill="WHITE" />
+            <Pane layoutX="25.0" layoutY="323.0" prefHeight="40.0" prefWidth="388.0" style="-fx-background-color: grey; -fx-background-radius: 15;" />
+            <Button fx:id="openButton" layoutX="33.0" layoutY="329.0" mnemonicParsing="false" onAction="#handleOpenAction" style="-fx-background-radius: 15;" text="Meldung-Datei" />
+            <Label fx:id="fileLabel" layoutX="154.0" layoutY="334.0" maxWidth="250.0" prefHeight="17.0" prefWidth="250.0" textFill="WHITE" />
+            <Button fx:id="closeButton" layoutX="613.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" style="-fx-background-color: null;" text="X" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
