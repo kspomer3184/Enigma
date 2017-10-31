@@ -8,7 +8,7 @@
     <update check="always"/>
     <resources>
         <j2se version="9+" href="http://java.sun.com/products/autodl/j2se"/>
-        <jar href="Enigma.jar" size="10502" download="eager"/>
+        <jar href="Enigma.jar" size="18492857" download="eager"/>
     </resources>
     <jfx:javafx-desc width="800" height="600" main-class="enigma.Enigma" name="Enigma"/>
 </jnlp>

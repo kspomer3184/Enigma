@@ -1,5 +1,6 @@
 package enigma;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -24,28 +25,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class EnigmaController extends Application {
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Enigma.fxml"));
-        stage.initStyle(StageStyle.UNDECORATED);
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     ObservableList<String> rotors = FXCollections.observableArrayList("1 - Eins", "2 - Zwei", "3 - Drei", "4 - Vier", "5 - Fünf");
 
@@ -55,6 +41,32 @@ public class EnigmaController extends Application {
 
     ArrayList<String> message = new ArrayList<>();
 
+    File file;
+    
+    
+    
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("Enigma.fxml"));
+        stage.initStyle(StageStyle.UNDECORATED);
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
+        finishedPane.setDisable(true);
+
+    }
+    
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+
+    
     @FXML
     private ResourceBundle resources;
 
@@ -90,9 +102,15 @@ public class EnigmaController extends Application {
 
     @FXML
     private Button openButton;
+    
+    @FXML
+    private Button finishButton;
 
     @FXML
     private Label fileLabel;
+    
+    @FXML
+    private Pane finishedPane;
 
     @FXML
     public Button closeButton;
@@ -102,8 +120,20 @@ public class EnigmaController extends Application {
 
     }
 
-    void numConvert(int num){
-        //if()
+    void numConvert(){
+        for (int i = 0; i < message.size(); i++) {
+            
+                        message.set(i, message.get(i).replace("1", "ONE"));
+                        message.set(i, message.get(i).replace("2", "TWO"));
+                        message.set(i, message.get(i).replace("3", "THREE"));
+                        message.set(i, message.get(i).replace("4", "FOUR"));
+                        message.set(i, message.get(i).replace("5", "FIVE"));
+                        message.set(i, message.get(i).replace("6", "SIX"));
+                        message.set(i, message.get(i).replace("7", "SEVEN"));
+                        message.set(i, message.get(i).replace("8", "EIGHT"));
+                        message.set(i, message.get(i).replace("9", "NINE"));
+                        message.set(i, message.get(i).replace("0", "ZERO"));
+                    }
     }
     
     @FXML
@@ -112,19 +142,23 @@ public class EnigmaController extends Application {
         fc.setTitle("View Files");
         fc.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"), new ExtensionFilter("All Files", "*.*"));
         fc.setInitialDirectory(new File(System.getProperty("user.home")));
-        File file = fc.showOpenDialog(openButton.getScene().getWindow());
+        file = fc.showOpenDialog(openButton.getScene().getWindow());
+        
         if (file != null) { //I found the file
             Scanner sc = new Scanner(file).useDelimiter("\n");
             while (sc.hasNext()) {
-                message.add(sc.next());
+                message.add(sc.next().trim());
+                
             }
-
+            sc.close();
         }
+        
+        numConvert();
         fileLabel.setText(file.getName());
     }
 
     @FXML
-    private void handleEncodeAction(ActionEvent event) {
+    private void handleEncodeAction(ActionEvent event) throws IOException {
 
         int inWheel = Character.getNumericValue(innerWheel.getValue().charAt(0)) - 1;
         int midWheel = Character.getNumericValue(middleWheel.getValue().charAt(0)) - 1;
@@ -138,46 +172,29 @@ public class EnigmaController extends Application {
         Reflector rf = new Reflector();
         rf.settings(reflector.getText());
 
-        for (int i = 0; i < message.size(); i++) {
-            String tempString = "";
-            for (int j = 0; j < message.get(i).length(); j++) {
-
-                
-                char temp = message.get(i).charAt(j);
-                if(Character.isDigit(temp)){
-                    if(Character.getNumericValue(temp) == 1){
-                        //message.get(i)  
-                    }
-                }
-                boolean upper = Character.isUpperCase(temp);
-
-                temp = pb.encodeChar(temp);
-                System.err.println("pb:" + temp);
-                temp = cp.forwardCipher(temp);
-                System.err.println("cp:" + temp);
-                temp = rf.encodeChar(temp);
-                System.err.println("rf:" + temp);
-                temp = cp.reverseCipher(temp);
-                System.err.println("pc:" + temp);
-                temp = pb.encodeChar(temp);
-                System.err.println("pb:" + temp);
-
-                cp.rotate();
-
-                if (upper) {
-                    temp = Character.toUpperCase(temp);
-                }
-                tempString += temp;
-            }
-            message.set(i, tempString);
-        }
-
+        Encoder en = new Encoder();
+        en.encodeMessage(pb, cp, rf, message);
+        en.writeMessage(file, message);
+        
         System.err.println(message);
-
+        
+        finishedPane.setDisable(false);
+        finishedPane.setVisible(true);
+        //String path = Test.class.getResource("/nena.mp3").toString();
+        Media media = new Media("file:/nena.mp3");
+        MediaPlayer mp = new MediaPlayer(media);
+        mp.play();
     }
 
     @FXML
     public void handleCloseButtonAction(ActionEvent event) {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
+    }
+    
+    @FXML
+    public void handleFinishButtonAction(ActionEvent event) throws IOException {
+        Desktop.getDesktop().open(file);
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }

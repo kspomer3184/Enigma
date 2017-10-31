@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="enigma.EnigmaController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="372.0" prefWidth="640.0" style="-fx-background-color: maroon;" VBox.vgrow="ALWAYS">
+         <children>
+            <Label layoutX="178.0" layoutY="102.0" text="Processing" textFill="WHITE">
+               <font>
+                  <Font name="Apple Chancery" size="66.0" />
+               </font>
+            </Label>
+            <ProgressBar fx:id="progressBar" layoutX="220.0" layoutY="252.0" prefWidth="200.0" progress="0.0" />
+            <ImageView fitHeight="67.0" fitWidth="76.0" layoutX="15.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../nena.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="105.0" layoutY="325.0" text="Nena - 99 Luftballoons" textFill="WHITE">
+               <font>
+                  <Font name="Apple Symbols" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="104.0" layoutY="353.0" text="Nena Live (1995)" textFill="WHITE">
+               <font>
+                  <Font name="Apple Symbols" size="21.0" />
+               </font>
+            </Label>
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>
