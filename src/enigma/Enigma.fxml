@@ -88,6 +88,13 @@
                   </Button>
                </children>
             </Pane>
+            <Spinner fx:id="daySpinner" editable="true" layoutX="51.0" layoutY="7.0" prefHeight="27.0" prefWidth="73.0" />
+            <Button fx:id="setButton" layoutX="143.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleSetButtonAction" style="-fx-background-color: #a68246 #a68246;" text="Set" />
+            <Label layoutX="10.0" layoutY="10.0" text="Day:" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
       </children>
     </AnchorPane>
   </children>

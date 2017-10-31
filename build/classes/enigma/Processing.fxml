@@ -12,7 +12,7 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="372.0" prefWidth="640.0" style="-fx-background-color: maroon;" VBox.vgrow="ALWAYS">
          <children>
-            <Label layoutX="178.0" layoutY="59.0" text="Processing" textFill="WHITE">
+            <Label layoutX="178.0" layoutY="102.0" text="Processing" textFill="WHITE">
                <font>
                   <Font name="Apple Chancery" size="66.0" />
                </font>

@@ -9,7 +9,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  *
@@ -36,10 +39,10 @@ public class Encoder {
                     temp = rf.encodeChar(temp);
                     temp = cp.reverseCipher(temp);
                     temp = pb.encodeChar(temp);
-                
-                cp.rotate();
+
+                    cp.rotate();
                 }
-                
+
                 if (upper) {
                     temp = Character.toUpperCase(temp);
                 }
@@ -48,15 +51,38 @@ public class Encoder {
             message.set(i, tempString);
         }
     }
-    
-    public void writeMessage(File file, ArrayList<String> message) throws IOException{
+
+    public void writeMessage(File file, ArrayList<String> message) throws IOException {
         try (FileWriter fw = new FileWriter(file); BufferedWriter bw = new BufferedWriter(fw)) {
-            for(int i = 0; i < message.size(); i++){
+            for (int i = 0; i < message.size(); i++) {
                 bw.write(message.get(i));
                 bw.newLine();
             }
         }
-        
+
+    }
+
+    public void numConvert(ArrayList<String> message) {
+        for (int i = 0; i < message.size(); i++) {
+
+            message.set(i, message.get(i).replace("1", "ONE"));
+            message.set(i, message.get(i).replace("2", "TWO"));
+            message.set(i, message.get(i).replace("3", "THREE"));
+            message.set(i, message.get(i).replace("4", "FOUR"));
+            message.set(i, message.get(i).replace("5", "FIVE"));
+            message.set(i, message.get(i).replace("6", "SIX"));
+            message.set(i, message.get(i).replace("7", "SEVEN"));
+            message.set(i, message.get(i).replace("8", "EIGHT"));
+            message.set(i, message.get(i).replace("9", "NINE"));
+            message.set(i, message.get(i).replace("0", "ZERO"));
+        }
+    }
+
+    public void playMusic() throws URISyntaxException {
+        Media media;
+        media = new Media(getClass().getResource("/music/nena.mp3").toURI().toString());
+        MediaPlayer mp = new MediaPlayer(media);
+        mp.play();
     }
 
 }
