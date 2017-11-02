@@ -11,16 +11,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.TextFlow?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="enigma.EnigmaController">
+<VBox prefHeight="358.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="enigma.EnigmaController">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="372.0" prefWidth="640.0" style="-fx-background-color: maroon;" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="356.0" prefWidth="644.0" style="-fx-background-color: none;" VBox.vgrow="ALWAYS">
       <children>
-            <TextFlow layoutX="183.0" layoutY="14.0" prefHeight="52.0" prefWidth="275.0" textAlignment="CENTER" />
-            <Button fx:id="encodeButton" defaultButton="true" layoutX="443.0" layoutY="315.0" mnemonicParsing="false" onAction="#handleEncodeAction" prefHeight="55.0" prefWidth="150.0" style="-fx-background-color: #a68246; -fx-background-radius: 25;" text="Kodieren" textFill="WHITE">
+            <ImageView fitHeight="401.0" fitWidth="644.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../background.jpg" />
+               </image>
+            </ImageView>
+            <Button fx:id="encodeButton" defaultButton="true" layoutX="454.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleEncodeAction" prefHeight="55.0" prefWidth="150.0" style="-fx-background-color: #0b6bd8#0b6bd8; -fx-background-radius: 25;" text="Kodieren" textFill="WHITE">
                <font>
                   <Font name="Apple Symbols" size="31.0" />
                </font>
@@ -28,28 +32,25 @@
                   <Glow />
                </effect>
             </Button>
-            <ChoiceBox fx:id="innerWheel" layoutX="33.0" layoutY="134.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="middleWheel" layoutX="33.0" layoutY="194.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="outerWheel" layoutX="33.0" layoutY="257.0" prefWidth="150.0" />
-            <Label layoutX="33.0" layoutY="117.0" text="Inneres Rad" textFill="WHITE" />
-            <Label layoutX="33.0" layoutY="177.0" text="Mittleres Rad" textFill="WHITE" />
-            <Label layoutX="33.0" layoutY="240.0" text="Äußeres Rad" textFill="WHITE" />
-            <TextField fx:id="plugboard" layoutX="371.0" layoutY="161.0" prefHeight="27.0" prefWidth="233.0" promptText="Stecktafel-Einstellungen" />
-            <TextField fx:id="reflector" layoutX="371.0" layoutY="221.0" prefHeight="27.0" prefWidth="233.0" promptText="Reflektor-Einstellungen" />
-            <Spinner fx:id="middleStart" editable="true" layoutX="237.0" layoutY="194.0" prefHeight="27.0" prefWidth="74.0" />
-            <Spinner fx:id="outerStart" editable="true" layoutX="237.0" layoutY="257.0" prefHeight="27.0" prefWidth="74.0" />
-        <Label alignment="CENTER" layoutX="154.0" layoutY="33.0" style="&#10;" text="Die Enigma Maschine" textAlignment="CENTER" textFill="WHITE" wrapText="false">
-          <font>
-            <Font name="Apple Chancery" size="36.0" />
-          </font>
-        </Label>
-            <Spinner fx:id="innerStart" editable="true" layoutX="237.0" layoutY="134.0" prefHeight="27.0" prefWidth="74.0" />
-            <Label layoutX="237.0" layoutY="117.0" text="Innerer Anfang" textFill="WHITE" />
-            <Label layoutX="237.0" layoutY="177.0" text="Mittlerer Anfang" textFill="WHITE" />
-            <Label layoutX="237.0" layoutY="240.0" text="Äußerer Anfang" textFill="WHITE" />
-            <Pane layoutX="25.0" layoutY="323.0" prefHeight="40.0" prefWidth="388.0" style="-fx-background-color: grey; -fx-background-radius: 15;" />
-            <Button fx:id="openButton" layoutX="33.0" layoutY="329.0" mnemonicParsing="false" onAction="#handleOpenAction" style="-fx-background-radius: 15;" text="Meldung-Datei" />
-            <Label fx:id="fileLabel" layoutX="154.0" layoutY="334.0" maxWidth="250.0" prefHeight="17.0" prefWidth="250.0" textFill="WHITE" />
+            <ChoiceBox fx:id="innerWheel" layoutX="36.0" layoutY="88.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="middleWheel" layoutX="36.0" layoutY="148.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="outerWheel" layoutX="36.0" layoutY="211.0" prefWidth="150.0" />
+            <Label layoutX="36.0" layoutY="71.0" text="Inneres Rad" textFill="WHITE" />
+            <Label layoutX="36.0" layoutY="131.0" text="Mittleres Rad" textFill="WHITE" />
+            <Label layoutX="36.0" layoutY="194.0" text="Äußeres Rad" textFill="WHITE" />
+            <TextField fx:id="plugboard" layoutX="374.0" layoutY="115.0" prefHeight="27.0" prefWidth="233.0" promptText="Stecktafel-Einstellungen" />
+            <TextField fx:id="reflector" layoutX="374.0" layoutY="175.0" prefHeight="27.0" prefWidth="233.0" promptText="Reflektor-Einstellungen" />
+            <Spinner fx:id="middleStart" editable="true" layoutX="240.0" layoutY="148.0" prefHeight="27.0" prefWidth="74.0" />
+            <Spinner fx:id="outerStart" editable="true" layoutX="240.0" layoutY="211.0" prefHeight="27.0" prefWidth="74.0" />
+            <Spinner fx:id="innerStart" editable="true" layoutX="240.0" layoutY="88.0" prefHeight="27.0" prefWidth="74.0" />
+            <Label layoutX="240.0" layoutY="71.0" text="Innerer Anfang" textFill="WHITE" />
+            <Label layoutX="240.0" layoutY="131.0" text="Mittlerer Anfang" textFill="WHITE" />
+            <Label layoutX="240.0" layoutY="194.0" text="Äußerer Anfang" textFill="WHITE" />
+            <Pane layoutX="36.0" layoutY="277.0" prefHeight="40.0" prefWidth="388.0" style="-fx-background-color: grey; -fx-background-radius: 15;">
+               <children>
+                  <Label fx:id="fileLabel" layoutX="124.0" layoutY="12.0" maxWidth="250.0" prefHeight="17.0" prefWidth="250.0" textFill="WHITE" />
+               </children></Pane>
+            <Button fx:id="openButton" layoutX="44.0" layoutY="283.0" mnemonicParsing="false" onAction="#handleOpenAction" style="-fx-background-radius: 15;" text="Meldung-Datei" />
             <Button fx:id="closeButton" layoutX="613.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" style="-fx-background-color: null;" text="X" textFill="WHITE">
                <font>
                   <Font size="14.0" />
@@ -57,28 +58,37 @@
             </Button>
             <Pane fx:id="finishedPane" disable="true" layoutX="76.0" layoutY="105.0" prefHeight="248.0" prefWidth="484.0" visible="false">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="248.0" layoutX="15.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #a68246 #a68246;" width="484.0" />
-                  <Label alignment="CENTER" layoutX="138.0" layoutY="22.0" style="-fx-background-color: #a68246 #a68246;" text="Kodieren fertig" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+                  <MediaView fx:id="mediaView" fitHeight="100.0" fitWidth="350.0" layoutX="80.0" layoutY="37.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="248.0" layoutX="7.0" layoutY="-37.0" stroke="BLACK" strokeType="INSIDE" width="484.0" />
+                  <Label alignment="CENTER" layoutX="130.0" layoutY="-25.0" text="Kodieren fertig" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                      <font>
                         <Font name="Apple Chancery" size="36.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="67.0" fitWidth="76.0" layoutX="49.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="67.0" fitWidth="76.0" layoutX="96.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../nena.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="143.0" layoutY="109.0" text="Nena - 99 Luftballoons" textFill="WHITE">
+                  <Label layoutX="192.0" layoutY="50.0" text="Nena - 99 Luftballoons" textFill="WHITE">
                      <font>
                         <Font name="Apple Symbols" size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="143.0" layoutY="143.0" text="Nena Live (1995)" textFill="WHITE">
+                  <Label layoutX="193.0" layoutY="84.0" text="Nur Die Beste (1995)" textFill="WHITE">
                      <font>
                         <Font name="Apple Symbols" size="21.0" />
                      </font>
                   </Label>
-                  <Button fx:id="finishButton" defaultButton="true" layoutX="122.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleFinishButtonAction" prefHeight="55.0" prefWidth="238.0" style="-fx-background-color: #a68246; -fx-background-radius: 25;" text="Meldung öffnen" textFill="WHITE">
+                  <Button fx:id="finishButton" defaultButton="true" layoutX="34.0" layoutY="146.0" mnemonicParsing="false" onAction="#handleFinishButtonAction" prefHeight="55.0" prefWidth="167.0" style="-fx-background-color: #0b6bd8#0b6bd8 #0b6bd8#0b6bd8; -fx-background-radius: 25;" text="öffnen" textFill="WHITE">
+                     <font>
+                        <Font name="Apple Symbols" size="31.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </Button>
+                  <Button fx:id="repeatButton" defaultButton="true" layoutX="220.0" layoutY="146.0" mnemonicParsing="false" onAction="#handleRepeatButtonAction" prefHeight="55.0" prefWidth="238.0" style="-fx-background-color: #0b6bd8#0b6bd8 #0b6bd8#0b6bd8; -fx-background-radius: 25;" text="Andere Datei" textFill="WHITE">
                      <font>
                         <Font name="Apple Symbols" size="31.0" />
                      </font>
@@ -89,10 +99,15 @@
                </children>
             </Pane>
             <Spinner fx:id="daySpinner" editable="true" layoutX="51.0" layoutY="7.0" prefHeight="27.0" prefWidth="73.0" />
-            <Button fx:id="setButton" layoutX="143.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleSetButtonAction" style="-fx-background-color: #a68246 #a68246;" text="Set" />
-            <Label layoutX="10.0" layoutY="10.0" text="Day:" textFill="WHITE">
+            <Button fx:id="setButton" layoutX="143.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleSetButtonAction" style="-fx-background-color: #0b6bd8;" text="Set" textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="10.0" text="Tag" textFill="WHITE">
                <font>
                   <Font size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="208.0" layoutY="12.0" prefHeight="53.0" prefWidth="428.0" style="&#10;" text="Die Enigma Maschine" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+               <font>
+                  <Font name="Heiti TC Light" size="36.0" />
                </font>
             </Label>
       </children>

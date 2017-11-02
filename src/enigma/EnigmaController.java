@@ -23,12 +23,10 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
@@ -47,32 +45,27 @@ public class EnigmaController extends Application {
 
     File file;
     
-    
-    
+    boolean playing = false;
+
     @Override
     public void start(Stage stage) throws Exception {
+        
         Parent root = FXMLLoader.load(getClass().getResource("Enigma.fxml"));
         stage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
         stage.show();
-        finishedPane.setDisable(true);
         
         
 
     }
     
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
+        
         launch(args);
     }
 
-
-    
     @FXML
     private ResourceBundle resources;
 
@@ -126,9 +119,16 @@ public class EnigmaController extends Application {
 
     @FXML
     public Button closeButton;
+
+    @FXML
+    public Button repeatButton;
+    
+    @FXML
+    private MediaView mediaView;
     
     @FXML
     private void handleOpenAction(ActionEvent event) throws IOException {
+        
         FileChooser fc = new FileChooser();
         fc.setTitle("View Files");
         fc.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"), new ExtensionFilter("All Files", "*.*"));
@@ -138,7 +138,7 @@ public class EnigmaController extends Application {
         if (file != null) { try ( //I found the file
                 Scanner sc = new Scanner(file).useDelimiter("\n")) {
             while (sc.hasNext()) { 
-                message.add(sc.next().trim());
+                message.add(sc.next());
                 
             }
             }
@@ -149,50 +149,69 @@ public class EnigmaController extends Application {
     }
 
     @FXML
-    private void handleEncodeAction(ActionEvent event) throws IOException, URISyntaxException {
-
+    private void handleEncodeAction(ActionEvent event) throws IOException, URISyntaxException, InterruptedException {
+        
+        encodeButton.setText("Verarbeitung");
+        encodeButton.setDisable(true);
+        
         int inWheel = Character.getNumericValue(innerWheel.getValue().charAt(0)) - 1;
         int midWheel = Character.getNumericValue(middleWheel.getValue().charAt(0)) - 1;
         int outWheel = Character.getNumericValue(outerWheel.getValue().charAt(0)) - 1;
-
-        Plugboard pb = new Plugboard();
-        pb.settings(plugboard.getText());
-
+        
         Cipher cp = new Cipher(inWheel, midWheel, outWheel, innerStart.getValue(), middleStart.getValue(), outerStart.getValue());
-
+        Plugboard pb = new Plugboard();
         Reflector rf = new Reflector();
+        Encoder en = new Encoder();
+        
+        pb.settings(plugboard.getText());
         rf.settings(reflector.getText());
 
-        Encoder en = new Encoder();
         en.numConvert(message);
         en.encodeMessage(pb, cp, rf, message);
         en.writeMessage(file, message);
         
-        System.err.println(message);
-        
         finishedPane.setDisable(false);
         finishedPane.setVisible(true);
         
-        en.playMusic();
-
+        MediaPlayer mp = en.playMusic();
+        mediaView.setMediaPlayer(mp);
+        if(!playing){
+            mp.play();
+            playing = true;
+        }
         
     }
 
     @FXML
     public void handleCloseButtonAction(ActionEvent event) {
+        
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
     
     @FXML
     public void handleFinishButtonAction(ActionEvent event) throws IOException {
+        
         Desktop.getDesktop().open(file);
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
-    }
+    }    
     
     @FXML
+    public void handleRepeatButtonAction(ActionEvent event) throws IOException, Exception {
+        
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        
+        stage.close();
+        message.clear();
+        start(new Stage());
+        
+        
+    }
+    
+    @FXML // this exceptionally long function auto-sets the settings for each day on this given sheet
     public void handleSetButtonAction(ActionEvent event){
+        
         if (null != daySpinner.getValue())switch (daySpinner.getValue()) {
             case 31:
                 innerWheel.setValue("1 - Eins");
@@ -361,7 +380,7 @@ public class EnigmaController extends Application {
                 valueFactoryInner.setValue(1);
                 valueFactoryMiddle.setValue(3);
                 valueFactoryOuter.setValue(7);
-                plugboard.setText("DS HY MR GW LX AH BQ CO IP NT");
+                plugboard.setText("DS HY MR GW LX AJ BQ CO IP NT");
                 reflector.setText("AI BT MV HU FW EL DG KN YZ OQ CP SX J. R ");
                 break;
             case 14:
@@ -513,14 +532,6 @@ public class EnigmaController extends Application {
 
     @FXML
     void initialize() {
-        assert innerWheel != null : "fx:id=\"innerWheel\" was not injected: check your FXML file 'Enigma.fxml'.";
-        assert middleWheel != null : "fx:id=\"middleWheel\" was not injected: check your FXML file 'Enigma.fxml'.";
-        assert outerWheel != null : "fx:id=\"outerWheel\" was not injected: check your FXML file 'Enigma.fxml'.";
-        assert plugboard != null : "fx:id=\"plugboard\" was not injected: check your FXML file 'Enigma.fxml'.";
-        assert reflector != null : "fx:id=\"reflector\" was not injected: check your FXML file 'Enigma.fxml'.";
-        assert middleStart != null : "fx:id=\"middleStart\" was not injected: check your FXML file 'Enigma.fxml'.";
-        assert outerStart != null : "fx:id=\"outerStart\" was not injected: check your FXML file 'Enigma.fxml'.";
-        assert innerStart != null : "fx:id=\"innerStart\" was not injected: check your FXML file 'Enigma.fxml'.";
 
         innerWheel.setItems(rotors);
         innerWheel.setValue("1 - Eins");

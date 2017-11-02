@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import javafx.scene.media.Media;
@@ -24,14 +25,18 @@ public class Encoder {
 
     }
 
-    public void encodeMessage(Plugboard pb, Cipher cp, Reflector rf, ArrayList<String> message) {
+    synchronized public void encodeMessage(Plugboard pb, Cipher cp, Reflector rf, ArrayList<String> message) {
+        
+        char temp;
+        boolean upper;
+        boolean special;
+        
         for (int i = 0; i < message.size(); i++) {
             String tempString = "";
             for (int j = 0; j < message.get(i).length(); j++) {
-
-                char temp = message.get(i).charAt(j);
-                boolean upper = Character.isUpperCase(temp);
-                boolean special = !(Character.isLetter(temp) || temp == '.' || temp == ' ');
+                temp = message.get(i).charAt(j);
+                upper = Character.isUpperCase(temp);
+                special = !(Character.isLetter(temp) || temp == '.' || temp == ' ');
 
                 if (!special) {
                     temp = pb.encodeChar(temp);
@@ -42,7 +47,6 @@ public class Encoder {
 
                     cp.rotate();
                 }
-
                 if (upper) {
                     temp = Character.toUpperCase(temp);
                 }
@@ -53,6 +57,7 @@ public class Encoder {
     }
 
     public void writeMessage(File file, ArrayList<String> message) throws IOException {
+        
         try (FileWriter fw = new FileWriter(file); BufferedWriter bw = new BufferedWriter(fw)) {
             for (int i = 0; i < message.size(); i++) {
                 bw.write(message.get(i));
@@ -63,8 +68,9 @@ public class Encoder {
     }
 
     public void numConvert(ArrayList<String> message) {
+        
         for (int i = 0; i < message.size(); i++) {
-
+            message.set(i, message.get(i).replace("\n", ""));
             message.set(i, message.get(i).replace("1", "ONE"));
             message.set(i, message.get(i).replace("2", "TWO"));
             message.set(i, message.get(i).replace("3", "THREE"));
@@ -78,11 +84,13 @@ public class Encoder {
         }
     }
 
-    public void playMusic() throws URISyntaxException {
-        Media media;
-        media = new Media(getClass().getResource("/music/nena.mp3").toURI().toString());
+    public MediaPlayer playMusic() throws URISyntaxException, MalformedURLException {
+        
+        Media media = new Media(getClass().getResource("nena.mp3").toString());
         MediaPlayer mp = new MediaPlayer(media);
-        mp.play();
+        mp.setAutoPlay(true);
+      
+        return mp;
     }
 
 }
